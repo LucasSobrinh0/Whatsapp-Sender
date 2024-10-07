@@ -1,4 +1,4 @@
-#  Whatsapp Bulk Sender.
+#  Whatsapp Sender.
 
 ## Bibliotecas que precisam ser instaladas:
 
