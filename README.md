@@ -4,7 +4,7 @@
 
 pip install selenium
 
-## É necessário instalar o driver do do chrome.
+## É necessário instalar o driver do chrome.
 
 https://developer.chrome.com/docs/chromedriver/downloads/version-selection?hl=pt-br
 
