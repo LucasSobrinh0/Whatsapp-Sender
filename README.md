@@ -8,7 +8,7 @@ pip install selenium
 
 https://developer.chrome.com/docs/chromedriver/downloads/version-selection?hl=pt-br
 
-## Nos números de telefone, é necessário utilizar o exemplo abaixo, devido a API do whatsapp.
+## Nos números de telefone, é necessário utilizar o exemplo abaixo, devido a API do whatsapp. Utilize no máximo 300 números para não ser banido no whatsapp.
 
 (codigo do pais) (codigo do estado) (numero de telefone)
 
