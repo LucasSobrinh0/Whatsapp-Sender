@@ -23,7 +23,7 @@ for phone_number in phones_number:
     encoded_message = urllib.parse.quote(selected_message)
     
     # Criar o link com o número de telefone e a mensagem codificada
-    link_https = f"https://web.whatsapp.com/send?phone={phone_number}&text={encoded_message}"
+    link_https = f"https://web.message.com/send?phone={phone_number}&text={encoded_message}"
     driver.get(link_https)
     
     # Esperar a página carregar (tempo para você escanear o QR code na primeira vez)

@@ -1,0 +1,201 @@
+#:import MDFlatButton kivymd.uix.button.MDFlatButton
+#:import MDTextField kivymd.uix.textfield.MDTextField
+#:import MDLabel kivymd.uix.label.MDLabel
+#:import MDTopAppBar kivymd.uix.toolbar.MDTopAppBar
+#:import OneLineListItem kivymd.uix.list.OneLineListItem
+#:import TwoLineListItem kivymd.uix.list.TwoLineListItem
+#:import MDFillRoundFlatButton kivymd.uix.button.MDFillRoundFlatButton
+#:import MDProgressBar kivymd.uix.progressbar.MDProgressBar
+
+<Manager>:
+    MainScreen:
+        name: 'main'
+
+    PhoneManagerScreen:
+        name: 'phone_manager'
+
+    MessageManagerScreen:
+        name: 'message_manager'
+
+    SettingsScreen:
+        name: 'settings'
+
+<MainScreen>:
+    name: 'main'
+    BoxLayout:
+        orientation: 'vertical'
+        spacing: dp(10)
+        padding: dp(20)
+        MDTopAppBar:
+            title: "Sistema de Mensagens"
+            elevation: 0
+            md_bg_color: app.theme_cls.primary_color
+
+        MDLabel:
+            text: "Whatsapp Web Sender"
+            halign: 'center'
+            font_style: 'H5'
+
+        BoxLayout:
+            orientation: 'vertical'
+            size_hint_y: None
+            height: self.minimum_height
+            spacing: dp(15)
+
+            MDFillRoundFlatButton:
+                text: "Gerenciar Números"
+                font_size: "18sp"
+                size_hint_x: 0.8
+                pos_hint: {'center_x': 0.5}
+                on_release:
+                    app.root.current = 'phone_manager'
+
+            MDFillRoundFlatButton:
+                text: "Gerenciar Mensagens"
+                font_size: "18sp"
+                size_hint_x: 0.8
+                pos_hint: {'center_x': 0.5}
+                on_release:
+                    app.root.current = 'message_manager'
+
+            MDFillRoundFlatButton:
+                text: "Configurações"
+                font_size: "18sp"
+                size_hint_x: 0.8
+                pos_hint: {'center_x': 0.5}
+                on_release:
+                    app.root.current = 'settings'
+
+            MDFillRoundFlatButton:
+                text: "Iniciar Envio"
+                font_size: "18sp"
+                size_hint_x: 0.8
+                pos_hint: {'center_x': 0.5}
+                on_release:
+                    app.start_sending_messages()
+
+<PhoneManagerScreen>:
+    name: 'phone_manager'
+    BoxLayout:
+        orientation: 'vertical'
+        padding: dp(20)
+        spacing: dp(10)
+        MDTopAppBar:
+            title: "Gerenciador de Números"
+            elevation: 0
+            md_bg_color: app.theme_cls.primary_color
+            left_action_items: [["arrow-left", lambda x: app.change_screen('main')]]
+
+        MDTextField:
+            id: phone_input
+            hint_text: "Telefones (separados por vírgulas)"
+            size_hint_x: 0.8
+            pos_hint: {'center_x': 0.5}
+            font_size: "18sp"
+            mode: 'rectangle'
+
+        MDFillRoundFlatButton:
+            text: "Adicionar Números"
+            font_size: "18sp"
+            size_hint_x: 0.8
+            pos_hint: {'center_x': 0.5}
+            on_release:
+                root.add_numbers()
+
+        ScrollView:
+            MDList:
+                id: phone_list
+
+<MessageManagerScreen>:
+    name: 'message_manager'
+    BoxLayout:
+        orientation: 'vertical'
+        padding: dp(20)
+        spacing: dp(10)
+        MDTopAppBar:
+            title: "Gerenciador de Mensagens"
+            elevation: 0
+            md_bg_color: app.theme_cls.primary_color
+            left_action_items: [["arrow-left", lambda x: app.change_screen('main')]]
+
+        MDTextField:
+            id: message_input
+            hint_text: "Digite a mensagem"
+            size_hint_x: 0.8
+            pos_hint: {'center_x': 0.5}
+            font_size: "18sp"
+            multiline: True
+            mode: 'rectangle'
+
+        MDFillRoundFlatButton:
+            text: "Adicionar Mensagem"
+            font_size: "18sp"
+            size_hint_x: 0.8
+            pos_hint: {'center_x': 0.5}
+            on_release:
+                root.add_message()
+
+        ScrollView:
+            MDList:
+                id: message_list
+
+<SettingsScreen>:
+    name: 'settings'
+    BoxLayout:
+        orientation: 'vertical'
+
+        MDTopAppBar:
+            title: "Configurações"
+            elevation: 0
+            md_bg_color: app.theme_cls.primary_color
+            left_action_items: [["arrow-left", lambda x: app.change_screen('main')]]
+
+        ScrollView:
+            do_scroll_x: False
+            MDBoxLayout:
+                orientation: 'vertical'
+                padding: dp(20)
+                spacing: dp(10)
+                size_hint_y: None
+                height: self.minimum_height
+
+                MDTextField:
+                    id: min_time_input
+                    hint_text: "Tempo mínimo entre envios (segundos)"
+                    size_hint_x: 0.8
+                    pos_hint: {'center_x': 0.5}
+                    font_size: "18sp"
+                    text: "5"
+                    mode: 'rectangle'
+                    input_filter: 'int'
+
+                MDTextField:
+                    id: max_time_input
+                    hint_text: "Tempo máximo entre envios (segundos)"
+                    size_hint_x: 0.8
+                    pos_hint: {'center_x': 0.5}
+                    font_size: "18sp"
+                    text: "10"
+                    mode: 'rectangle'
+                    input_filter: 'int'
+
+                MDFillRoundFlatButton:
+                    text: "Salvar Configurações"
+                    font_size: "18sp"
+                    size_hint_x: 0.8
+                    pos_hint: {'center_x': 0.5}
+                    on_release:
+                        root.validate_times()
+
+<EditDialogContent>:
+    orientation: 'vertical'
+    size_hint_y: None
+    height: dp(100)
+    spacing: dp(10)
+    MDTextField:
+        id: edit_number_input
+        hint_text: "Digite o novo número"
+        font_size: "18sp"
+        input_filter: 'int'
+        size_hint_x: 0.8
+        pos_hint: {'center_x': 0.5}
